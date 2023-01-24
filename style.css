@@ -157,6 +157,11 @@ input{
   padding: .2em 1.2em;
   margin-bottom: 10px;
 }
+
+::placeholder{
+  color: #000000;
+}
+
 input:hover{
   background: #EBDCB2;
 }

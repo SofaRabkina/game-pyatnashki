@@ -2,7 +2,7 @@ const newGame = document.querySelector('.newGame');
 
 newGame.onclick = function() {
     const name = document.getElementById('login').value;
-    if (name === '' || name === 'Введите имя'){
+    if (name === ''){
         alert('Введите имя');
         return;
     }

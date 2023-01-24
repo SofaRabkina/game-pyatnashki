@@ -1,21 +1,19 @@
-var startbutton = document.querySelector(".newGame");//Выбрали кнопку
+var startbutton = document.querySelector(".newGame");
 
 window.addEventListener("load", startGame);
 
-startbutton.onclick = function(){//При нажатии кнопки запускаем функцию
-	
+startbutton.onclick = function(){
 	startGame();
-	//alert('ОАОАОАОАОА');
 };
 
 function startGame(){
-	const field = document.querySelector(".field");//Выбрали поле
-	let time = performance.now();//старт отсчета времени
-	field.innerHTML = "";//Опустошаем поле
-	field.innerHTML = "<button></button>".repeat(16);//Создаем 16 кнопок
+	const field = document.querySelector(".field");
+	let time = performance.now();
+	field.innerHTML = "";
+	field.innerHTML = "<button></button>".repeat(16);
 	const buttons = [...field.children];//Создали массив из кнопок
-	let nums = [...Array(17).keys()].slice(1, 17);//Массив, в котором хранятся значения от 1 до 16
-	nums[17] = 0;//Последним будет нуль
+	let nums = [...Array(17).keys()].slice(1, 17);
+	nums[17] = 0;
 
 	size = 4;
 	let space_x, space_y;//координаты пустой ячейки
@@ -26,17 +24,15 @@ function startGame(){
 	} 
 
 	start();
-	//console.log(map);
+
 	for (i=0; i<50; i++){
 		shift_random();
 	}
 	refresh();
-	console.log(map);
 
 	field.addEventListener("click", (event) => {
 		if (event.target.tagName !== "BUTTON"){
 			return;
-			console.log("RETURN");
 		}
 		const position = buttons.indexOf(event.target);
 		shift(position);
@@ -90,17 +86,14 @@ function startGame(){
 	function check()
 	{
 		if (!(space_x == size - 1 && space_y == size - 1)) {
-						console.log('first false');
 						return false;
 					}
 		for (x = 0; x < size; x++)
 			for (y = 0; y < size; y++)
 				if (!(x === size - 1 && y === size - 1)) 
 					if (map[x][y] !== cord_to_pos(x, y)+1) {
-						console.log('x='+x+'y='+y+' ; ' + map[x][y] + '\ncord_to_pos(x,y)=' + cord_to_pos(x, y));
 						return false;
 					}
-		console.log('true');
 		return true;
 	}
 
@@ -109,33 +102,31 @@ function startGame(){
 	{
 		x = Math.floor((pos) / size);
 		y = (pos) % size;
-		//console.log('x: '+x+' y: '+y);
-		//console.log(map[x][y]);
 		if (x < 0 || x > size) return 0;
 		if (y < 0 || y > size) return 0;
 		return map[x][y];
 	}
-
 	//x - номер строки
 	//y - номер столбца
-	//преобразуцет координаты в позицию
+
+	//преобразует координаты в позицию
 	function cord_to_pos (x, y)
 	{
 		if (x < 0) x = 0;
 		if (x > size - 1) x = size - 1;
 		if (y < 0) y = 0;
 		if (y > size - 1) y = size - 1;
-		return x * size + y;//мб наоборот x и y
+		return x * size + y;
 	}
 	
-	function refresh(){//Функция для обновления текста кнопок
+	//Функция для обновления текста кнопок
+	function refresh(){
 		for (i = 0; i < 16; i++){
-			if (get_number(i)===0){
-				buttons[i].innerHTML = '';
-				//console.log(get_number[i]);
+			if (get_number(i)!==0){
+				buttons[i].innerHTML = get_number(i);
 			}
 			else {
-				buttons[i].innerHTML = get_number(i);
+				buttons[i].innerHTML = '';
 			}
 		}
 		
